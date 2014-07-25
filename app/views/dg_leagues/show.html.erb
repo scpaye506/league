@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Address1:</strong>
+  <%= @dg_league.address1 %>
+</p>
+
+<p>
+  <strong>Address2:</strong>
+  <%= @dg_league.address2 %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @dg_league.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @dg_league.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @dg_league.zip %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @dg_league.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @dg_league.description %>
+</p>
+
+<p>
+  <strong>Par:</strong>
+  <%= @dg_league.par %>
+</p>
+
+<div class="well">
+  <h3> Last Games's Results</h3>
+  <dl class="dl-horizontal">
+  <% @games.last.players.uniq.each do |player| %>
+    <dt><%= player.name %>:</dt>
+    <dd><%= player.score_for_game(@games.last.id) %></dd>
+  <% end %>
+  </dl>
+</div>
+
+<% if current_user %>
+<%= link_to 'Edit', edit_dg_league_path(@dg_league) %> |
+<% end %>
+<%= link_to 'Back', dg_leagues_path %>

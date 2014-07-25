@@ -1,0 +1,38 @@
+<h1>Listing dg_leagues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Address1</th>
+      <th>Address2</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Par</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @dg_leagues.each do |dg_league| %>
+      <tr>
+        <td><%= dg_league.address1 %></td>
+        <td><%= dg_league.address2 %></td>
+        <td><%= dg_league.city %></td>
+        <td><%= dg_league.state %></td>
+        <td><%= dg_league.zip %></td>
+        <td><%= link_to dg_league.name, dg_league.url_by_name %></td>
+        <td><%= dg_league.description %></td>
+        <td><%= dg_league.par %></td>
+        <td><%= link_to icon('pencil'), edit_dg_league_path(dg_league), class: "btn btn-success" %></td>
+        <td><%= link_to icon('trash-o') , dg_league, method: :delete, data: { confirm: 'Are you sure?' },  class: "btn btn-danger" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Dg league', new_dg_league_path %>

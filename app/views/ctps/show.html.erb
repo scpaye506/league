@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Hole:</strong>
+  <%= @ctp.hole %>
+</p>
+
+<p>
+  <strong>Player:</strong>
+  <%= @ctp.player_id %>
+</p>
+
+<p>
+  <strong>Game:</strong>
+  <%= @ctp.game_id %>
+</p>
+
+<%= link_to 'Edit', edit_ctp_path(@ctp) %> |
+<%= link_to 'Back', ctps_path %>

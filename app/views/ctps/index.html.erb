@@ -1,0 +1,29 @@
+<h1>Listing ctps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hole</th>
+      <th>Player</th>
+      <th>Game</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ctps.each do |ctp| %>
+      <tr>
+        <td><%= ctp.hole %></td>
+        <td><%= ctp.player_id %></td>
+        <td><%= ctp.game_id %></td>
+        <td><%= link_to 'Show', ctp %></td>
+        <td><%= link_to 'Edit', edit_ctp_path(ctp) %></td>
+        <td><%= link_to 'Destroy', ctp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Ctp', new_ctp_path %>
