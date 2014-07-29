@@ -1,0 +1,31 @@
+<br>
+<table class="table">
+  <thead>
+    <tr>
+      <th class = "col-xs-6">Player name</th>
+      <th class = "col-xs-2">Gender</th>
+      <th class = "col-xs-2">Classification</th>
+      <th class = "col-xs-1"></th>
+      <% if current_user %>
+        <th class = "col-xs-1"><%= link_to icon('plus'), 'players/new', class: "btn btn-success" %></th>
+      <% end %>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @players.each do |player| %>
+      <tr>
+        <td class="col-xs-6"><%= link_to player.name, player %></td>
+        <td class="col-xs-2"><%= player.gender %></td>
+        <td class="col-xs-2"><%= player.classification %></td>
+        <% if current_user %>
+          <td class="col-xs-1"><%= link_to icon('pencil'), edit_player_path(player), class: "btn btn-info" %></td>
+          <td class="col-xs-1"><%= link_to icon('trash-o') , player, method: :delete, data: { confirm: 'Are you sure you want to delete this player?' },  class: "btn btn-danger" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+

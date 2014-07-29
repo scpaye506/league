@@ -1,29 +1,21 @@
 <p id="notice"><%= notice %></p>
+<div class="container">
+  <%= link_to 'Back', '/' %>
+</div>
 
-<p>
-  <strong>First name:</strong>
-  <%= @player.first_name %>
-</p>
+<div class="container well">
+  <p>
+    <strong>Name:</strong>
+    <%= @player.name %>
+  </p>
 
-<p>
-  <strong>Last name:</strong>
-  <%= @player.last_name %>
-</p>
+  <p>
+    <strong>Gender:</strong>
+    <%= @player.gender %>
+  </p>
 
-<p>
-  <strong>Middle name:</strong>
-  <%= @player.middle_name %>
-</p>
-
-<p>
-  <strong>Gender:</strong>
-  <%= @player.gender %>
-</p>
-
-<p>
-  <strong>Classification:</strong>
-  <%= @player.classification %>
-</p>
-
-<%= link_to 'Edit', edit_player_path(@player) %> |
-<%= link_to 'Back', players_path %>
+  <p>
+    <strong>Classification:</strong>
+    <%= @player.classification %>
+  </p>
+</div>

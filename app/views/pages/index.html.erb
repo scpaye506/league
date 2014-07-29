@@ -1,2 +1,25 @@
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
+<div class = "container well">
+  <ul id="myTab" class="nav nav-tabs">
+    <li class="active"><a href="#leagues" data-toggle="tab">Leagues</a></li>
+    <li><a href="#players" data-toggle="tab">Players</a></li>
+    <li><a href="#games" data-toggle="tab">Games</a></li>
+    <li class ="pull-right">
+      <% if user_signed_in? %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+      <% else %>
+        <%= link_to "Admin Login", new_user_session_path, :class => 'navbar-link'  %>
+      <% end %>
+    </li>
+  </ul>
+  <div id="myTabContent" class="tab-content">
+     <div class="tab-pane fade in active" id="leagues">
+        <%= render 'dg_leagues/league_list' %>
+     </div>
+     <div class="tab-pane fade" id="players">
+        <%= render 'players/player_list' %>
+     </div>
+     <div class="tab-pane fade" id="games">
+        <%= render 'games/game_list' %>
+     </div>
+  </div>
+</div>

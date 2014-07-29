@@ -18,9 +18,9 @@
     <%= f.number_field :value %>
   </div>
   <div class="action col-xs-6 score_button">
-    <%= f.submit 'Add Score', class: 'btn btn-primary' %>
+    <%= f.submit 'Edit Score', class: 'btn btn-primary' %>
   </div>
   <div class="field col-xs-6">
-    <%= f.hidden_field :game_id, :value => @game.id %>
+    <%= f.hidden_field :game_id%>
   </div>
 <% end %>

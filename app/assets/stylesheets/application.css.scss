@@ -25,3 +25,11 @@
   @import "vender/mixins";*/
 
   @import "pages";
+
+textarea.form-control{
+  height: 150px !important;
+}
+
+.score_button{
+  margin-top: 23px;
+}

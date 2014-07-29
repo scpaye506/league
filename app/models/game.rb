@@ -1,5 +1,5 @@
 class Game < ActiveRecord::Base
-  belongs_to :dg_league
+  belongs_to :dg_league #, :inverse_of => :game
   has_many :scores
   has_many :players, through: :scores
   has_many :ctps
@@ -8,4 +8,5 @@ class Game < ActiveRecord::Base
   def name
     "#{start_date}"
   end
+
 end

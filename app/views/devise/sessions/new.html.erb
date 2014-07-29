@@ -1,5 +1,6 @@
-<h2>Sign in</h2>
-
+<div class="container">
+  <%= link_to 'Back', "/" %>
+</div>
 <div class="container well">
   <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
     <%= f.email_field :email, autofocus: true %>

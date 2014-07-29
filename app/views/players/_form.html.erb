@@ -1,4 +1,4 @@
-<%= form_for(@player) do |f| %>
+<%= bootstrap_form_for(@player) do |f| %>
   <% if @player.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@player.errors.count, "error") %> prohibited this player from being saved:</h2>
@@ -11,27 +11,22 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :first_name %><br>
+  <div class="field col-xs-4">
     <%= f.text_field :first_name %>
   </div>
-  <div class="field">
-    <%= f.label :last_name %><br>
-    <%= f.text_field :last_name %>
-  </div>
-  <div class="field">
-    <%= f.label :middle_name %><br>
+  <div class="field col-xs-4">
     <%= f.text_field :middle_name %>
   </div>
-  <div class="field">
-    <%= f.label :gender %><br>
+  <div class="field col-xs-4">
+    <%= f.text_field :last_name %>
+  </div>
+  <div class="field col-xs-6">
     <%= f.text_field :gender %>
   </div>
-  <div class="field">
-    <%= f.label :classification %><br>
+  <div class="field col-xs-6">
     <%= f.text_field :classification %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions col-xs-3 pull-right text-right">
+    <%= f.submit 'Save Player', class: 'btn btn-primary' %>
   </div>
 <% end %>
