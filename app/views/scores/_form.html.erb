@@ -11,13 +11,13 @@
     </div>
   <% end %>
 
-   <div class="field col-xs-4">
+   <div class="field col-xs-6">
     <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]} %>
   </div>
   <div class="field col-xs-2">
     <%= f.number_field :value %>
   </div>
-  <div class="action col-xs-6 score_button">
+  <div class="action col-xs-4 score_button">
     <%= f.submit 'Add Score', class: 'btn btn-primary' %>
   </div>
   <div class="field col-xs-6">

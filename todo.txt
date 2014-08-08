@@ -1,0 +1,6 @@
+- Add modals
+- Format Player view
+- Format League view
+- be able to sort by score or scratch score on games
+- sort by league or date on game list
+- check handicap is calculated correctly in all scenarios (rounds up and down correctly)

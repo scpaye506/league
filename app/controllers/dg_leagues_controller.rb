@@ -1,4 +1,7 @@
 class DgLeaguesController < InheritedResources::Base
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, except: [:new, :create, :update, :edit, :destroy]
+
   def show
     if params[:id]
       @dg_league = DgLeague.find(params[:id])

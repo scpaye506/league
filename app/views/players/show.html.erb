@@ -1,8 +1,3 @@
-<p id="notice"><%= notice %></p>
-<div class="container">
-  <%= link_to 'Back', '/' %>
-</div>
-
 <div class="container well">
   <p>
     <strong>Name:</strong>
@@ -18,4 +13,33 @@
     <strong>Classification:</strong>
     <%= @player.classification %>
   </p>
+</div>
+
+<div class="container well">
+  <h3> Previous Results</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class = "col-xs-2">Date</th>
+        <th class = "col-xs-3">League</th>
+        <th class = "col-xs-2">Score</th>
+        <th class = "col-xs-2">Handicap</th>
+        <th class = "col-xs-2">Scratch</th>
+        <th class = "col-xs-1">CTPs</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @player.games.sort {|a,b| b.start_date <=> a.start_date}.each do |game| %>
+        <tr>
+          <td class = "col-xs-2"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
+          <td class = "col-xs-3"><%= game.dg_league.name %></td>
+          <td class = "col-xs-2"><%= game.get_player_score(@player.id).adjusted_score %></td>
+          <td class = "col-xs-2"><%= @player.calc_handicap(game.start_date, game.dg_league_id) %></td>
+          <td class = "col-xs-2"><%= game.get_player_score(@player.id).value %></td>
+          <td class = "col-xs-1"><%= game.formatted_ctps(@player.id) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>

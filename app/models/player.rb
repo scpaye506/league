@@ -11,9 +11,13 @@ class Player < ActiveRecord::Base
     scores.joins(:game).where('games.id = ?', id).pluck(:value).first
   end
 
-  def calc_handicap(date)
+  def last_scores(date, league_id, n)
+    scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).order(value: :asc).pluck(:value).last(n)
+  end
+
+  def calc_handicap(date, league_id)
     #have to add in check for which league
-    @scores = scores.joins(:game).where('games.start_date < ?', date).order(value: :asc).pluck(:value).last(6)
+    @scores = last_scores(date, league_id, 6)
     if @scores.count == 0
       return 5
     elsif @scores.count  > 5

@@ -1,4 +1,7 @@
 class GamesController < InheritedResources::Base
+  before_action :authenticate_user!
+  skip_before_action :authenticate_user!, except: [:new, :create, :update, :edit, :destroy]
+
   def show
     if params[:id]
       @game = Game.find(params[:id])
@@ -6,6 +9,7 @@ class GamesController < InheritedResources::Base
       @dg_league = DgLeague.where(name: params[:name].gsub("_", " ")).first
     end
     @score = Score.new()
+    @ctp = Ctp.new()
 
   #  @games = @dg_league.games
   end
