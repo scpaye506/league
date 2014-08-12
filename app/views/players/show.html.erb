@@ -2,18 +2,38 @@
   <p>
     <strong>Name:</strong>
     <%= @player.name %>
-  </p>
-
-  <p>
     <strong>Gender:</strong>
     <%= @player.gender %>
-  </p>
-
-  <p>
     <strong>Classification:</strong>
     <%= @player.classification %>
   </p>
 </div>
+
+<div class="container well">
+  <h3> League Summaries </h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class = "col-xs-3">League name</th>
+        <th class = "col-xs-2">Handicap</th>
+        <th class = "col-xs-2">Best Round</th>
+        <th class = "col-xs-4">Last 6 Scratch Scores</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @player.dg_leagues.uniq.each do |league| %>
+        <tr>
+          <td class="col-xs-3"><%= link_to league.name, league %></td>
+          <td class = "col-xs-2"><%= @player.calc_handicap(Date.today, league.id) %></td>
+          <td class = "col-xs-2"><%= @player.best_score(Date.today, league.id) %></td>
+          <td class = "col-xs-1"><%= @player.last_scores(Date.today, league.id, 6).join(" | ") %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
 
 <div class="container well">
   <h3> Previous Results</h3>
@@ -33,7 +53,7 @@
       <% @player.games.sort {|a,b| b.start_date <=> a.start_date}.each do |game| %>
         <tr>
           <td class = "col-xs-2"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
-          <td class = "col-xs-3"><%= game.dg_league.name %></td>
+          <td class = "col-xs-3"><%= link_to game.dg_league.name, game.dg_league %></td>
           <td class = "col-xs-2"><%= game.get_player_score(@player.id).adjusted_score %></td>
           <td class = "col-xs-2"><%= @player.calc_handicap(game.start_date, game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= game.get_player_score(@player.id).value %></td>

@@ -33,7 +33,7 @@ class ScoresController < InheritedResources::Base
     end
   end
 
-  protected
+protected
     def permitted_params
       params.require(:score).permit(:player_id, :game_id, :value)
     end

@@ -14,6 +14,9 @@ class GamesController < InheritedResources::Base
   #  @games = @dg_league.games
   end
 
+  def create
+    create!  { root_url }
+  end
 
   protected
     def permitted_params

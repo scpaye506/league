@@ -1,6 +1,10 @@
 - Add modals
-- Format Player view
 - Format League view
+  - display last 6 scores in date order, currently is random
+- Format Game view
+  - add summary stats at top for top x players
 - be able to sort by score or scratch score on games
 - sort by league or date on game list
 - check handicap is calculated correctly in all scenarios (rounds up and down correctly)
+- add what place each person is by checking how many people have scores better than them plus 1
+- add drop downs for player creation for gender and classification
