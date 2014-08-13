@@ -21,9 +21,9 @@
 </div>
 <% if @games.length > 0 %>
   <div class="container well">
-    <h3>Last Games Results - <%= @games.last.start_date.strftime("%B %d, %Y")  %></h3>
+    <h3><%= @games.last.start_date.strftime("%B %d, %Y") %> Results</h3>
     <div class="row-fluid">
-      <div class="col-xs-4">
+      <div class="col-sm-4">
         <h4>Top Adjusted Scores</h4>
         <table>
           <tbody>
@@ -37,7 +37,7 @@
           </tbody>
         </table>
       </div>
-      <div class="col-xs-4">
+      <div class="col-sm-4">
         <h4>Top Scratch Scores</h4>
         <table>
           <tbody>
@@ -51,14 +51,18 @@
           </tbody>
         </table>
       </div>
-      <div class="col-xs-4">
-        <h4 class = "text-center">CTPs</h4>
-        <dl class="dl-horizontal">
-        <% @dg_league.games.last.ctps.uniq.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
-          <dt><%= ctp.player.name %>:</dt>
-          <dd><%= ctp.hole %></dd>
-        <% end %>
-        </dl>
+      <div class="col-sm-4">
+        <h4>CTPs</h4>
+        <table>
+          <tbody>
+            <% @dg_league.games.last.ctps.uniq.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
+              <tr>
+                <td class="text-right player_rank"> <%= ctp.player.name %>: </td>
+                <td class="player_score"> <%= ctp.hole %> </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
@@ -69,7 +73,8 @@
       <thead>
         <tr>
           <th class = "col-xs-3">Player name</th>
-          <th class = "col-xs-2">Handicap</th>
+          <th class = "col-xs-1">Handicap</th>
+          <th class = "col-xs-1">Capability</th>
           <th class = "col-xs-2">Best Round</th>
           <th class = "col-xs-4">Last 6 Scratch Scores</th>
         </tr>
@@ -79,9 +84,10 @@
         <% @dg_league.players.uniq.each do |player| %>
           <tr>
             <td class="col-xs-3"><%= link_to player.name, player %></td>
-            <td class = "col-xs-2"><%= player.calc_handicap(Date.tomorrow, @dg_league.id) %></td>
+            <td class = "col-xs-1"><%= player.calc_handicap(Date.tomorrow, @dg_league.id) %></td>
+            <td class = "col-xs-1"><%= player.capability(Date.tomorrow, @dg_league.id) %></td>
             <td class = "col-xs-2"><%= player.best_score(Date.tomorrow, @dg_league.id) %></td>
-            <td class = "col-xs-1"><%= player.last_scores(Date.tomorrow, @dg_league.id, 6).reverse.join(" | ") %></td>
+            <td class = "col-xs-4"><%= player.last_scores(Date.tomorrow, @dg_league.id, 6).reverse.join(" | ") %></td>
           </tr>
         <% end %>
       </tbody>

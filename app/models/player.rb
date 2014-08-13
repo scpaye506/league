@@ -17,6 +17,19 @@ class Player < ActiveRecord::Base
     @scores.pop
   end
 
+  def capability(date, league_id)
+    @scores = scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).pluck(:value).last(6).sort
+
+    if @scores.count == 0
+      return 54.0
+    elsif @scores.count  > 5
+      @scores.pop
+    end
+
+    value = @scores.inject{|sum,x| sum + x }
+    (value.to_f / @scores.count.to_f).round(1)
+  end
+
   def last_scores(date, league_id, n)
     scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).pluck(:value).last(n)
   end

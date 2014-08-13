@@ -22,7 +22,7 @@
 <div class="container well">
   <h3>Game Results</h3>
   <div class="row-fluid">
-    <div class="col-xs-4">
+    <div class="col-sm-4">
       <h4>Top Adjusted Scores</h4>
       <table>
         <tbody>
@@ -36,7 +36,7 @@
         </tbody>
       </table>
     </div>
-    <div class="col-xs-4">
+    <div class="col-sm-4">
       <h4>Top Scratch Scores</h4>
       <table>
         <tbody>
@@ -50,18 +50,21 @@
         </tbody>
       </table>
     </div>
-    <div class="col-xs-4">
-      <h4 class = "text-center">CTPs</h4>
-      <dl class="dl-horizontal">
-      <% @game.ctps.uniq.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
-        <dt><%= ctp.player.name %>:</dt>
-        <dd><%= ctp.hole %></dd>
-      <% end %>
-      </dl>
+    <div class="col-sm-4">
+      <h4>CTPs</h4>
+      <table>
+        <tbody>
+          <% @game.ctps.uniq.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
+            <tr>
+              <td class="text-right player_rank"> <%= ctp.player.name %>: </td>
+              <td class="player_score"> <%= ctp.hole %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
-
 
 <div class="container well">
   <h3> Player Results</h3>
@@ -69,11 +72,11 @@
     <thead>
       <tr>
         <th class = "col-xs-2">Name</th>
-        <th class = "col-xs-2">Score</th>
-        <th class = "col-xs-2">Handicap</th>
+        <th class = "col-xs-1">Score</th>
+        <th class = "col-xs-1">Handicap</th>
         <th class = "col-xs-2">Scratch</th>
+        <th class = "col-xs-1">Capability</th>
         <th class = "col-xs-2">Best Round</th>
-        <th class = "col-xs-1"></th>
         <th class = "col-xs-1"></th>
       </tr>
     </thead>
@@ -82,9 +85,10 @@
       <% @game.scores.sort {|a,b| a.adjusted_score <=> b.adjusted_score}.each do |score| %>
         <tr>
           <td class = "col-xs-2"><%= link_to score.player.name, score.player %></td>
-          <td class = "col-xs-2"><%= score.adjusted_score %></td>
-          <td class = "col-xs-2"><%= score.player.calc_handicap(@game.start_date, @game.dg_league_id) %></td>
+          <td class = "col-xs-1"><%= score.adjusted_score %></td>
+          <td class = "col-xs-1"><%= score.player.calc_handicap(@game.start_date, @game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= score.value %></td>
+          <td class = "col-xs-1"><%= score.player.capability(@game.start_date, @game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= score.player.best_score(@game.start_date, @game.dg_league_id) %></td>
           <% if current_user %>
           <td class="col-xs-1"><%= link_to icon('trash-o') , score, method: :delete, data: { confirm: 'Are you sure you want to delete this score?' },  class: "btn btn-danger" %></td>
@@ -110,9 +114,9 @@
       <% @game.ctps.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
         <tr>
           <td class = "col-xs-2"><%= ctp.hole %></td>
-          <td class = "col-xs-2"><%= link_to ctp.player.name, ctp.player %></td>
+          <td class = "col-xs-8"><%= link_to ctp.player.name, ctp.player %></td>
           <% if current_user %>
-          <td class="col-xs-1"><%= link_to icon('trash-o') , ctp, method: :delete, data: { confirm: 'Are you sure you want to delete this ctp?' },  class: "btn btn-danger" %></td>
+          <td class="col-xs-2"><%= link_to icon('trash-o') , ctp, method: :delete, data: { confirm: 'Are you sure you want to delete this ctp?' },  class: "btn btn-danger" %></td>
         <% end %>
         </tr>
       <% end %>

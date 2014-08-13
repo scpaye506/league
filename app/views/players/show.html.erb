@@ -15,7 +15,8 @@
     <thead>
       <tr>
         <th class = "col-xs-3">League name</th>
-        <th class = "col-xs-2">Handicap</th>
+        <th class = "col-xs-1">Handicap</th>
+        <th class = "col-xs-1">Capability</th>
         <th class = "col-xs-2">Best Round</th>
         <th class = "col-xs-4">Last 6 Scratch Scores</th>
       </tr>
@@ -25,9 +26,10 @@
       <% @player.dg_leagues.uniq.each do |league| %>
         <tr>
           <td class="col-xs-3"><%= link_to league.name, league %></td>
-          <td class = "col-xs-2"><%= @player.calc_handicap(Date.tomorrow, league.id) %></td>
+          <td class = "col-xs-1"><%= @player.calc_handicap(Date.tomorrow, league.id) %></td>
+          <td class = "col-xs-1"><%= @player.capability(Date.tomorrow, league.id) %></td>
           <td class = "col-xs-2"><%= @player.best_score(Date.tomorrow, league.id) %></td>
-          <td class = "col-xs-1"><%= @player.last_scores(Date.tomorrow, league.id, 6).reverse.join(" | ") %></td>
+          <td class = "col-xs-4"><%= @player.last_scores(Date.tomorrow, league.id, 6).reverse.join(" | ") %></td>
         </tr>
       <% end %>
     </tbody>
@@ -42,10 +44,11 @@
       <tr>
         <th class = "col-xs-2">Date</th>
         <th class = "col-xs-3">League</th>
-        <th class = "col-xs-2">Score</th>
-        <th class = "col-xs-2">Handicap</th>
-        <th class = "col-xs-2">Scratch</th>
-        <th class = "col-xs-1">CTPs</th>
+        <th class = "col-xs-1">Score</th>
+        <th class = "col-xs-1">Handicap</th>
+        <th class = "col-xs-1">Scratch</th>
+        <th class = "col-xs-2">Capability</th>
+        <th class = "col-xs-2">CTPs</th>
       </tr>
     </thead>
 
@@ -54,10 +57,11 @@
         <tr>
           <td class = "col-xs-2"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
           <td class = "col-xs-3"><%= link_to game.dg_league.name, game.dg_league %></td>
-          <td class = "col-xs-2"><%= game.get_player_score(@player.id).adjusted_score %></td>
-          <td class = "col-xs-2"><%= @player.calc_handicap(game.start_date, game.dg_league_id) %></td>
-          <td class = "col-xs-2"><%= game.get_player_score(@player.id).value %></td>
-          <td class = "col-xs-1"><%= game.formatted_ctps(@player.id) %></td>
+          <td class = "col-xs-1"><%= game.get_player_score(@player.id).adjusted_score %></td>
+          <td class = "col-xs-1"><%= @player.calc_handicap(game.start_date, game.dg_league_id) %></td>
+          <td class = "col-xs-1"><%= game.get_player_score(@player.id).value %></td>
+          <td class = "col-xs-2"><%= @player.capability(game.start_date, game.dg_league_id) %></td>
+          <td class = "col-xs-2"><%= game.formatted_ctps(@player.id) %></td>
         </tr>
       <% end %>
     </tbody>
