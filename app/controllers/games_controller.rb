@@ -15,7 +15,17 @@ class GamesController < InheritedResources::Base
   end
 
   def create
-    create!  { root_url }
+    create!  { resource_url }
+  end
+
+  def destroy
+    game = Game.find(params[:id])
+    game.destroy
+
+    respond_to do |format|
+      format.html { redirect_to :back, notice: "Game deleted!" }
+      format.json { head :no_content }
+    end
   end
 
   protected

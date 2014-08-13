@@ -27,7 +27,7 @@
           <td class="col-xs-3"><%= link_to league.name, league %></td>
           <td class = "col-xs-2"><%= @player.calc_handicap(Date.today, league.id) %></td>
           <td class = "col-xs-2"><%= @player.best_score(Date.today, league.id) %></td>
-          <td class = "col-xs-1"><%= @player.last_scores(Date.today, league.id, 6).join(" | ") %></td>
+          <td class = "col-xs-1"><%= @player.last_scores(Date.today, league.id, 6).reverse.join(" | ") %></td>
         </tr>
       <% end %>
     </tbody>

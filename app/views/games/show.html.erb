@@ -1,7 +1,7 @@
 <div class="container well">
   <p>
     <strong>League:</strong>
-    <%= @game.dg_league.name %>
+    <%= link_to @game.dg_league.name, @game.dg_league %>
   </p>
   <p>
     <strong>Date:</strong>
@@ -20,31 +20,48 @@
 <% end %>
 
 <div class="container well">
-  <h3> CTP Results</h3>
-  <table class="table">
-    <thead>
-      <tr>
-        <th class = "col-xs-2">Hole</th>
-        <th class = "col-xs-8">Player</th>
-        <th class = "col-xs-1"></th>
-        <th class = "col-xs-1"></th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <% @game.ctps.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
-        <tr>
-          <td class = "col-xs-3"><%= ctp.hole %></td>
-          <td class = "col-xs-3"><%= link_to ctp.player.name, ctp.player %></td>
-          <% if current_user %>
-          <td class="col-xs-1"><%= link_to icon('pencil'), edit_ctp_path(ctp), class: "btn btn-info" %></td>
-          <td class="col-xs-1"><%= link_to icon('trash-o') , ctp, method: :delete, data: { confirm: 'Are you sure you want to delete this score?' },  class: "btn btn-danger" %></td>
-        <% end %>
-        </tr>
+  <h3>Game Results</h3>
+  <div class="row-fluid">
+    <div class="col-xs-4">
+      <h4>Top Adjusted Scores</h4>
+      <table>
+        <tbody>
+          <% @game.players_by_adjusted_rank.each do |player| %>
+            <tr>
+              <td class="text-right player_rank"><%= player[:rank] %>.</td>
+              <td class="text-right player_name"><%= player[:name] %>:</td>
+              <td class="text-left player_score"> <%= player[:score] %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-4">
+      <h4>Top Scratch Scores</h4>
+      <table>
+        <tbody>
+          <% @game.players_by_rank.each do |player| %>
+            <tr>
+              <td class="text-right player_rank"><%= player[:rank] %>.</td>
+              <td class="text-right player_name"><%= player[:name] %>:</td>
+              <td class="text-left player_score"> <%= player[:score] %> </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-xs-4">
+      <h4 class = "text-center">CTPs</h4>
+      <dl class="dl-horizontal">
+      <% @game.ctps.uniq.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
+        <dt><%= ctp.player.name %>:</dt>
+        <dd><%= ctp.hole %></dd>
       <% end %>
-    </tbody>
-  </table>
+      </dl>
+    </div>
+  </div>
 </div>
+
 
 <div class="container well">
   <h3> Player Results</h3>
@@ -55,7 +72,7 @@
         <th class = "col-xs-2">Best Round</th>
         <th class = "col-xs-2">Score</th>
         <th class = "col-xs-2">Handicap</th>
-        <th class = "col-xs-2">Scratch </th>
+        <th class = "col-xs-2">Scratch</th>
         <th class = "col-xs-1"></th>
         <th class = "col-xs-1"></th>
       </tr>
@@ -70,7 +87,6 @@
           <td class = "col-xs-2"><%= score.player.calc_handicap(@game.start_date, @game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= score.value %></td>
           <% if current_user %>
-          <td class="col-xs-1"><%= link_to icon('pencil'), edit_score_path(score), class: "btn btn-info" %></td>
           <td class="col-xs-1"><%= link_to icon('trash-o') , score, method: :delete, data: { confirm: 'Are you sure you want to delete this score?' },  class: "btn btn-danger" %></td>
         <% end %>
         </tr>

@@ -25,12 +25,34 @@ class Player < ActiveRecord::Base
     #have to add in check for which league
     @scores = scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).order(value: :asc).pluck(:value).last(6)
     if @scores.count == 0
-      return 5
+      return -5
     elsif @scores.count  > 5
       @scores.pop
     end
 
-    @value = @scores.inject{|sum,x| sum + x }
-    (@value / @scores.count) - 54
+    value = @scores.inject{|sum,x| sum + x }
+    value = (value.to_f / @scores.count.to_f)
+
+    if value > 54.0
+      value = value.floor
+      value = 54 - value
+    else
+      value = value.ceil
+      value = value - 54
+    end
+
+
+
+    if gender == "Male"
+      if value < -15 && classification == "Adult"
+        value = -15
+      end
+    else
+      if value < -25 && classification == "Adult"
+        value = -25
+      end
+    end
+
+    value
   end
 end

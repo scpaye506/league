@@ -26,4 +26,31 @@ class Game < ActiveRecord::Base
     formatted_string
   end
 
+  def rank(score)
+    scores.where('value < ?', score).count + 1
+  end
+
+  def players_by_rank(fraction = 1)
+    scores_array = []
+    scores.sort {|a,b| a.value <=> b.value}.each  do |score|
+      scores_array.push({name: score.player.name, rank: rank(score.value), score: score.value})
+    end
+    count = scores_array.count / fraction
+    scores_array.first(count)
+  end
+
+  def players_by_adjusted_rank(fraction = 1)
+    scores_array = []
+    scores.sort {|a,b| a.adjusted_score <=> b.adjusted_score}.each  do |score|
+      scores_array.push({name: score.player.name, rank: nil, score: score.adjusted_score})
+    end
+
+    scores_array.each do |score|
+      score[:rank] = scores_array.select{|x| x[:score] < score[:score]}.count + 1
+    end
+
+    count = scores_array.count / fraction
+    scores_array.first(count)
+  end
+
 end

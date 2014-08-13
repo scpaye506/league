@@ -10,15 +10,7 @@ class DgLeaguesController < InheritedResources::Base
     end
 
     @games = @dg_league.games
-    if @games.length > 0
-      last_game = @games.last
-      last_game_players = last_game.players
-      @score_array = []
 
-      last_game_players.each do |player|
-        @score_array.push(player.score_for_game(last_game.id))
-      end
-    end
   end
 
   def destroy

@@ -11,14 +11,11 @@
     </div>
   <% end %>
 
-  <div class="field col-xs-12">
+  <div class="field col-xs-6">
     <%= f.select :dg_league_id, DgLeague.all.collect { |l| [l.name, l.id]} %>
   </div>
   <div class="field col-xs-6">
-    <%= f.datetime_select :start_date %>
-  </div>
-  <div class="field col-xs-6">
-    <%= f.datetime_select :end_date %>
+    <%= f.date_select :start_date %>
   </div>
 
   <div class="actions col-xs-3 pull-right text-right">
