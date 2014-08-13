@@ -38,13 +38,11 @@ class Player < ActiveRecord::Base
 
     if value > 54.0
       value = value.floor
-      value = 54 - value
     else
       value = value.ceil
-      value = value - 54
     end
 
-
+    value = 54 - value
 
     if gender == "Male"
       if value < -15 && classification == "Adult"
