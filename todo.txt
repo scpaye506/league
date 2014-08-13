@@ -4,6 +4,7 @@
 - make handicap calculate off of leagues handicap, not 54
 - add back edit scores page and make it actually edit and redirect back to the game
 - add BCR next to scores that are individual best rounds that game?
+-make mobile friendly
 
 git push heroku master
 binding.pry
