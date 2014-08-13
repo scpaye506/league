@@ -10,17 +10,18 @@
       </ul>
     </div>
   <% end %>
-
-   <div class="field col-xs-6">
-    <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]} %>
-  </div>
-  <div class="field col-xs-2">
-    <%= f.number_field :value, min: 0 %>
-  </div>
-  <div class="action col-xs-4 score_button">
-    <%= f.submit 'Add Score', class: 'btn btn-primary' %>
-  </div>
-  <div class="field col-xs-6">
-    <%= f.hidden_field :game_id, :value => @game.id %>
+  <div class="row">
+    <div class="field col-sm-6">
+      <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]} %>
+    </div>
+    <div class="field col-sm-2">
+      <%= f.number_field :value, min: 0 %>
+    </div>
+    <div class="action col-xs-4 score_button">
+      <%= f.submit 'Add Score', class: 'btn btn-primary' %>
+    </div>
+    <div class="field col-xs-6">
+      <%= f.hidden_field :game_id, :value => @game.id %>
+    </div>
   </div>
 <% end %>
