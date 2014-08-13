@@ -22,9 +22,12 @@ class Player < ActiveRecord::Base
   end
 
   def calc_handicap(date, league_id)
-    #have to add in check for which league
-    @scores = scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).order(value: :asc).pluck(:value).last(6)
+    @scores = scores.joins(:game).where('games.start_date < ? AND games.dg_league_id = ?', date, league_id).pluck(:value).last(6).sort
+
     if @scores.count == 0
+      if gender == "Female" || classification == "Child"
+        return -15
+      end
       return -5
     elsif @scores.count  > 5
       @scores.pop

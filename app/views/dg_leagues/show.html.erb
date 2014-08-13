@@ -72,10 +72,6 @@
           <th class = "col-xs-2">Handicap</th>
           <th class = "col-xs-2">Best Round</th>
           <th class = "col-xs-4">Last 6 Scratch Scores</th>
-          <th class = "col-xs-1"></th>
-          <% if current_user %>
-            <th class = "col-xs-1"><%= link_to icon('plus'), new_player_path, class: "btn btn-success" %></th>
-          <% end %>
         </tr>
       </thead>
 
@@ -83,13 +79,9 @@
         <% @dg_league.players.uniq.each do |player| %>
           <tr>
             <td class="col-xs-3"><%= link_to player.name, player %></td>
-            <td class = "col-xs-2"><%= player.calc_handicap(Date.today, @dg_league.id) %></td>
-            <td class = "col-xs-2"><%= player.best_score(Date.today, @dg_league.id) %></td>
-            <td class = "col-xs-1"><%= player.last_scores(Date.today, @dg_league.id, 6).reverse.join(" | ") %></td>
-            <% if current_user %>
-              <td class="col-xs-1"><%= link_to icon('pencil'), edit_player_path(player), class: "btn btn-info" %></td>
-              <td class="col-xs-1"><%= link_to icon('trash-o') , player, method: :delete, data: { confirm: 'Are you sure you want to delete this player?' },  class: "btn btn-danger" %></td>
-            <% end %>
+            <td class = "col-xs-2"><%= player.calc_handicap(Date.tomorrow, @dg_league.id) %></td>
+            <td class = "col-xs-2"><%= player.best_score(Date.tomorrow, @dg_league.id) %></td>
+            <td class = "col-xs-1"><%= player.last_scores(Date.tomorrow, @dg_league.id, 6).reverse.join(" | ") %></td>
           </tr>
         <% end %>
       </tbody>
@@ -103,10 +95,6 @@
           <tr>
             <th class = "col-xs-3">Date</th>
             <th class = "col-xs-8">League</th>
-            <th class = "col-xs-1"></th>
-            <% if current_user %>
-              <th class = "col-xs-1"><%= link_to icon('plus'), 'games/new', class: "btn btn-success" %></th>
-            <% end %>
           </tr>
         </thead>
 
@@ -115,10 +103,6 @@
             <tr>
               <td class="col-xs-3"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
               <td class="col-xs-8"><%= game.dg_league.name%></td>
-              <% if current_user %>
-                <td class="col-xs-1"><%= link_to icon('pencil'), edit_game_path(game), class: "btn btn-info" %></td>
-                <td class="col-xs-1"><%= link_to icon('trash-o') , game, method: :delete, data: { confirm: 'Are you sure you want to delete this game?' },  class: "btn btn-danger" %></td>
-              <% end %>
             </tr>
           <% end %>
         </tbody>

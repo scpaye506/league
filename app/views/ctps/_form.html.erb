@@ -15,7 +15,7 @@
     <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]} %>
   </div>
   <div class="field col-xs-2">
-    <%= f.number_field :hole %>
+    <%= f.number_field :hole, min: 0 %>
   </div>
   <div class="action col-xs-4 score_button">
     <%= f.submit 'Add CTP', class: 'btn btn-primary' %>

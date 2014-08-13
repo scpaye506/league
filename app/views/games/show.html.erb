@@ -69,10 +69,10 @@
     <thead>
       <tr>
         <th class = "col-xs-2">Name</th>
-        <th class = "col-xs-2">Best Round</th>
         <th class = "col-xs-2">Score</th>
         <th class = "col-xs-2">Handicap</th>
         <th class = "col-xs-2">Scratch</th>
+        <th class = "col-xs-2">Best Round</th>
         <th class = "col-xs-1"></th>
         <th class = "col-xs-1"></th>
       </tr>
@@ -82,12 +82,37 @@
       <% @game.scores.sort {|a,b| a.adjusted_score <=> b.adjusted_score}.each do |score| %>
         <tr>
           <td class = "col-xs-2"><%= link_to score.player.name, score.player %></td>
-          <td class = "col-xs-2"><%= score.player.best_score(@game.start_date, @game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= score.adjusted_score %></td>
           <td class = "col-xs-2"><%= score.player.calc_handicap(@game.start_date, @game.dg_league_id) %></td>
           <td class = "col-xs-2"><%= score.value %></td>
+          <td class = "col-xs-2"><%= score.player.best_score(@game.start_date, @game.dg_league_id) %></td>
           <% if current_user %>
           <td class="col-xs-1"><%= link_to icon('trash-o') , score, method: :delete, data: { confirm: 'Are you sure you want to delete this score?' },  class: "btn btn-danger" %></td>
+        <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div class="container well">
+  <h3> CTP Results</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th class = "col-xs-2">Hole</th>
+        <th class = "col-xs-8">Name</th>
+        <th class = "col-xs-2"></th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @game.ctps.sort {|a,b| a.hole <=> b.hole}.each do |ctp| %>
+        <tr>
+          <td class = "col-xs-2"><%= ctp.hole %></td>
+          <td class = "col-xs-2"><%= link_to ctp.player.name, ctp.player %></td>
+          <% if current_user %>
+          <td class="col-xs-1"><%= link_to icon('trash-o') , ctp, method: :delete, data: { confirm: 'Are you sure you want to delete this ctp?' },  class: "btn btn-danger" %></td>
         <% end %>
         </tr>
       <% end %>
