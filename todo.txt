@@ -5,6 +5,18 @@
 - add back edit scores page and make it actually edit and redirect back to the game
 - add BCR next to scores that are individual best rounds that game?
 -make mobile friendly
+-make add player redirect to add player so don't have to click if want to add multiple players
 
 git push heroku master
 binding.pry
+
+for local
+delete development_sqlite3 file
+rake db:migrate
+rake db:seed
+
+
+for heroku
+heroku pg:reset DATABASE
+heroku run rake db:migrate
+heroku run rake db:seed
