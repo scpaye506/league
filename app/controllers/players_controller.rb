@@ -13,11 +13,24 @@ class PlayersController < InheritedResources::Base
   end
 
   def create
-    create!  { root_url }
+    player = Player.create(permitted_params2)
+
+      respond_to do |format|
+        if player.save
+          format.html { redirect_to :back, notice: "Player added!" }
+          format.json { render json: player.to_json.html_safe}
+        else
+          format.html { redirect_to :back, notice: "Was unable to save player!"}
+          format.json { render json: player.errors }
+        end
+      end
   end
 
   protected
     def permitted_params
       params.permit(:player => [:first_name, :last_name, :middle_nam, :gender, :classification])
+    end
+    def permitted_params2
+      params.require(:player).permit(:first_name, :last_name, :middle_nam, :gender, :classification)
     end
 end

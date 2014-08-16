@@ -1,28 +1,30 @@
 <br>
-<table class="table">
-  <thead>
-    <tr>
-      <th class = "col-xs-10">Name</th>
-      <th class = "col-xs-1"></th>
-      <% if current_user %>
-        <th class = "col-xs-1"><%= link_to icon('plus'), 'dg_leagues/new', class: "btn btn-success" %></th>
-      <% end %>
-
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @dg_leagues.each do |dg_league| %>
+<div class="table-responsive">
+  <table class="table">
+    <thead>
       <tr>
-        <td class = "col-xs-10"><%= link_to dg_league.name, dg_league%></td>
+        <th class = "col-xs-10">Name</th>
+        <th class = "col-xs-1"></th>
         <% if current_user %>
-          <td class="col-xs-1"><%= link_to icon('pencil'), edit_dg_league_path(dg_league), class: "btn btn-info" %></td>
-          <td class="col-xs-1"><%= link_to icon('trash-o') , dg_league, method: :delete, data: { confirm: 'Are you sure you want to delete this league?' },  class: "btn btn-danger" %></td>
+          <th class = "col-xs-1"><%= link_to icon('plus'), 'dg_leagues/new', class: "btn btn-success" %></th>
         <% end %>
+
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @dg_leagues.each do |dg_league| %>
+        <tr>
+          <td class = "col-xs-10"><%= link_to dg_league.name, dg_league%></td>
+          <% if current_user %>
+            <td class="col-xs-1"><%= link_to icon('pencil'), edit_dg_league_path(dg_league), class: "btn btn-info" %></td>
+            <td class="col-xs-1"><%= link_to icon('trash-o') , dg_league, method: :delete, data: { confirm: 'Are you sure you want to delete this league?' },  class: "btn btn-danger" %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 
 

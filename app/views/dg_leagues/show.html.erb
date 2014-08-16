@@ -68,6 +68,29 @@
   </div>
 
   <div class="container well">
+      <h3> Previous 10 Games</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th class = "col-xs-3">Date</th>
+            <th class = "col-xs-8">League</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @dg_league.games.last(10).sort {|a,b| b.start_date <=> a.start_date}.each do |game| %>
+            <% if game.start_date > Date.new(1971,1,1) %>
+              <tr>
+                <td class="col-xs-3"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
+                <td class="col-xs-8"><%= game.dg_league.name%></td>
+              </tr>
+            <% end %>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+
+  <div class="container well table-responsive">
     <h3> League Players</h3>
     <table class="table">
       <thead>
@@ -81,7 +104,7 @@
       </thead>
 
       <tbody>
-        <% @dg_league.players.uniq.each do |player| %>
+        <% @dg_league.players.uniq.sort {|a,b| a.name <=> b.name}.each do |player| %>
           <tr>
             <td class="col-xs-3"><%= link_to player.name, player %></td>
             <td class = "col-xs-1"><%= player.calc_handicap(Date.tomorrow, @dg_league.id) %></td>
@@ -94,24 +117,5 @@
     </table>
   </div>
 
-  <div class="container well">
-      <h3> Previous Games</h3>
-      <table class="table">
-        <thead>
-          <tr>
-            <th class = "col-xs-3">Date</th>
-            <th class = "col-xs-8">League</th>
-          </tr>
-        </thead>
 
-        <tbody>
-          <% @dg_league.games.sort {|a,b| b.start_date <=> a.start_date}.each do |game| %>
-            <tr>
-              <td class="col-xs-3"><%= link_to game.start_date.strftime("%B %d, %Y"), game %></td>
-              <td class="col-xs-8"><%= game.dg_league.name%></td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
   <% end %>
