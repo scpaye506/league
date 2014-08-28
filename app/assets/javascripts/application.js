@@ -13,9 +13,11 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery-ui
-//= require pnotify.min
+//= require vendor/pnotify.min
 //= require bootstrap
 //= require fancybox
 //= require pages
 //= require chosen-jquery
 //= require games
+//= require vendor/bootstrap-combobox
+

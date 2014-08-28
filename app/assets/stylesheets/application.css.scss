@@ -17,13 +17,11 @@
  *= require_self
  *= require chosen
  */
+
   @import "chosen";
   @import "bootstrap";
-  @import "vender/pnotify.min";
-/*  @import "vender/jeet/index";
-  @import "vender/magic";
-  @import "vender/hint";
-  @import "vender/mixins";*/
+  @import "vendor/pnotify.min";
+  @import "vendor/bootstrap-combobox";
 
   @import "pages";
 

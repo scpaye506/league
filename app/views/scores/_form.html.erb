@@ -12,7 +12,7 @@
   <% end %>
   <div class="row">
     <div class="field col-sm-6">
-      <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]}, {}, { :class => 'chosen-select' } %>
+      <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]}, {include_blank: true}, class: 'combobox' %>
     </div>
     <div class="field col-sm-2">
       <%= f.number_field :value, min: 0 %>
