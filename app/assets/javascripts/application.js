@@ -17,15 +17,5 @@
 //= require bootstrap
 //= require fancybox
 //= require pages
-
-$(document).ready(function() {
-
-  var clickOnPopupLink = function(){
-    $('body').on('click', '.static-popup-link', function(){
-      $('#myModal').modal('show');
-    });
-  }
-
-  clickOnPopupLink();
-
-});
+//= require chosen-jquery
+//= require games

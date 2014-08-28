@@ -10,15 +10,16 @@
       </ul>
     </div>
   <% end %>
+  <div class="row">
+    <div class="field col-sm-6">
+      <%= f.select :dg_league_id, DgLeague.all.collect { |l| [l.name, l.id]} %>
+    </div>
+    <div class="field col-sm-6">
+      <%= f.date_select :start_date %>
+    </div>
 
-  <div class="field col-xs-6">
-    <%= f.select :dg_league_id, DgLeague.all.collect { |l| [l.name, l.id]} %>
-  </div>
-  <div class="field col-xs-6">
-    <%= f.date_select :start_date %>
-  </div>
-
-  <div class="actions col-xs-3 pull-right text-right">
-    <%= f.submit 'Save Game', class: 'btn btn-primary' %>
+    <div class="actions col-sm-3 pull-right text-right">
+      <%= f.submit 'Save Game', class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

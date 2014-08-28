@@ -15,8 +15,9 @@
  *= require fancybox
  *= require jquery-ui
  *= require_self
+ *= require chosen
  */
-
+  @import "chosen";
   @import "bootstrap";
   @import "vender/pnotify.min";
 /*  @import "vender/jeet/index";
