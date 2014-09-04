@@ -20,4 +20,6 @@
 //= require chosen-jquery
 //= require games
 //= require vendor/bootstrap-combobox
+//= require vendor/ui-bootstrap-tpls-0.11.0.min
+//= require ngapp
 

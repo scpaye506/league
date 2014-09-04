@@ -1,8 +1,14 @@
 class Player < ActiveRecord::Base
-  has_many :scores
+  has_many :scores, dependent: :destroy
   has_many :games, through: :scores
   has_many :dg_leagues, through: :games
-  has_many :ctps
+  has_many :ctps, dependent: :destroy
+
+  fuzzily_searchable :name
+
+  def name_changed?
+    first_name_changed? || middle_name_changed? || last_name_changed?
+  end
 
   def name
     "#{first_name} #{middle_name} #{last_name}"

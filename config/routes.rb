@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     get :autocomplete_player_first_name, on: :collection
   end
 
+  get '/api/players/search', to: "players#search"
+  post '/api/scores/create', to: "scores#create"
+
 
   resources :dg_leagues, only: [:show, :edit, :create, :update, :destroy, :index, :new]
   get '/league/:id', to: "dg_leagues#show"

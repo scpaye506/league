@@ -26,6 +26,23 @@ class PlayersController < InheritedResources::Base
       end
   end
 
+  def search
+    respond_to do |format|
+      format.html do
+        raise ActionController::RoutingError.new('Not Found')
+      end
+      format.json do
+        limit = params[:limit] ? params[:limit] : 10;
+        if params[:name]
+          @players = Player.find_by_fuzzy_name(params[:name], limit: limit)
+          @message = "Found #{@players.count}"
+        else
+          @message = "Name Required"
+        end
+      end
+    end
+  end
+
   protected
     def permitted_params
       params.permit(:player => [:first_name, :last_name, :middle_nam, :gender, :classification])

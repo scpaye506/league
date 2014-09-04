@@ -1,23 +1,24 @@
 class ScoresController < InheritedResources::Base
   before_action :authenticate_user!
   skip_before_action :authenticate_user!, except: [:new, :create, :update, :edit, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    if Player.find(params[:score][:player_id]).scores.joins(:game).where("games.id = ?", params[:score][:game_id]).count == 0
-      score = Score.create(permitted_params)
+    if Player.find(params[:playerId]).scores.joins(:game).where("games.id = ?", params[:gameId]).count == 0
+      score = Score.create({player_id: params[:playerId], game_id: params[:gameId], value: params[:input]})
 
       respond_to do |format|
         if score.save
-          format.html { redirect_to :back, notice: "Score added!" }
+          format.html { redirect_to game_path(params[:gameId]), notice: "Score added!" }
           format.json { render json: score.to_json.html_safe}
         else
-          format.html { redirect_to :back, notice: "Was unable to save score!"}
+          format.html { redirect_to game_path(params[:gameId]), notice: "Was unable to save score!"}
           format.json { render json: score.errors }
         end
       end
     else
       respond_to do |format|
-        format.html { redirect_to :back, notice: "Score already exists for that user"}
+        format.html { redirect_to game_path(params[:gameId]), notice: "Score already exists for that user"}
         format.json { render json: {notice: "Score already exists for that user"}.to_json }
       end
     end

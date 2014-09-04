@@ -1,27 +1,14 @@
-<%= bootstrap_form_for(@score) do |f| %>
-  <% if @score.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@score.errors.count, "error") %> prohibited this score from being saved:</h2>
-
-      <ul>
-      <% @score.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<div ng-controller="typeaheadController">
+    <div class="row form-inline">
+      <div class="field col-sm-6">
+        <input type="text" ng-model="selectedPlayer" placeholder="Player" typeahead="player as player.name for player in getPlayers($viewValue)" typeahead-loading="loadingPlayers" class="form-control">
+        <i ng-show="loadingPlayers" class="glyphicon-refresh glyphicon"></i>
+      </div>
+      <div class="field col-sm-2">
+        <input type="number" min="0" placeholder="Score" ng-model="input" class="form-control">
+      </div>
+      <div class="action col-xs-4 score_button">
+        <button ng-click="createScore()" class="btn btn-primary test"> Add Score </button>
+      </div>
     </div>
-  <% end %>
-  <div class="row">
-    <div class="field col-sm-6">
-      <%= f.select :player_id, Player.all.collect { |p| [p.name, p.id]}, {include_blank: true}, class: 'combobox' %>
-    </div>
-    <div class="field col-sm-2">
-      <%= f.number_field :value, min: 0 %>
-    </div>
-    <div class="action col-xs-4 score_button">
-      <%= f.submit 'Add Score', class: 'btn btn-primary test' %>
-    </div>
-    <div class="field col-xs-6">
-      <%= f.hidden_field :game_id, :value => @game.id %>
-    </div>
-  </div>
-<% end %>
+</div>
