@@ -1,4 +1,5 @@
-angular.module('leagueapp', ['ui.bootstrap']).controller('typeaheadController', function($scope, $http){
+var leaugeApp = angular.module('leagueapp', ['ui.bootstrap']);
+leaugeApp.controller('typeaheadController', function($scope, $http){
 	$scope.selectedPlayer = {name:'', id:0};
 	$scope.input = 0;
 
