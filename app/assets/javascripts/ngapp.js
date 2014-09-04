@@ -1,7 +1,7 @@
 var leaugeApp = angular.module('leagueapp', ['ui.bootstrap']);
 leaugeApp.controller('typeaheadController', function($scope, $http){
-	$scope.selectedPlayer = {name:'', id:0};
-	$scope.input = 0;
+	$scope.selectedPlayer = {name: '', id: 0};
+	$scope.input = '';
 
 	$scope.addAlert = function(message, title, type) {
 		new PNotify({
@@ -27,8 +27,8 @@ leaugeApp.controller('typeaheadController', function($scope, $http){
 			data: {playerId: $scope.selectedPlayer.id, gameId: gameId, input: $scope.input}
 		}).success(function(res){
 			$scope.addAlert(res.message);
-			$scope.selectedPlayer = {name:'', id:0};
-			$scope.input = 0;
+			$scope.selectedPlayer = {name: '', id: 0};
+			$scope.input = '';
 		})
 	};
 
