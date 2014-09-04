@@ -17,7 +17,7 @@
       <div class="row form-inline">
         <div class="field col-sm-6">
           <input type="text" ng-model="selectedPlayer" placeholder="Player" typeahead="player as player.name for player in getPlayers($viewValue)" typeahead-loading="loadingPlayers" class="form-control">
-          <i ng-show="loadingPlayers" class="glyphicon-refresh glyphicon"></i>
+          <i ng-show="loadingPlayers" class="fa fa-spinner fa-spin"></i>
         </div>
         <div class="field col-sm-2">
           <input type="number" min="0" placeholder="Score" ng-model="input" class="form-control">
