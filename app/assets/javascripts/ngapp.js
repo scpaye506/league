@@ -15,7 +15,7 @@ leaugeApp.controller('typeaheadController', function($scope, $http){
 	$scope.getPlayers = function(val) {
 		return $http.get('/api/players/search.json', {
 			params: {name: val}
-		}).then(function(res){ console.log(res);
+		}).then(function(res){
 			return res.data.players; 
 		});
 	};
@@ -23,9 +23,10 @@ leaugeApp.controller('typeaheadController', function($scope, $http){
 	$scope.createScore = function(){
 		$http({
 			method: 'post', 
-			url: '/api/scores/create',
+			url: '/api/scores/create.json',
 			data: {playerId: $scope.selectedPlayer.id, gameId: gameId, input: $scope.input}
 		}).success(function(res){
+			console.log(res);
 			$scope.addAlert(res.message);
 			$scope.selectedPlayer = {name: '', id: 0};
 			$scope.input = '';

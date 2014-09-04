@@ -9,17 +9,20 @@ class ScoresController < InheritedResources::Base
 
       respond_to do |format|
         if score.save
-          format.html { redirect_to game_path(params[:gameId]), notice: "Score added!" }
-          format.json { render json: score.to_json.html_safe}
+          @message = "Score Added!"
+          format.html { redirect_to game_path(params[:gameId]), notice: @message }
+          format.json {render json: {message: @message}.to_json }
         else
-          format.html { redirect_to game_path(params[:gameId]), notice: "Was unable to save score!"}
+          @message = "Was unable to save score!"
+          format.html { redirect_to game_path(params[:gameId]), notice: @message}
           format.json { render json: score.errors }
         end
       end
     else
       respond_to do |format|
-        format.html { redirect_to game_path(params[:gameId]), notice: "Score already exists for that user"}
-        format.json { render json: {notice: "Score already exists for that user"}.to_json }
+        @message = "Score already exists for that user"
+        format.html { redirect_to game_path(params[:gameId]), notice: @message}
+        format.json { render json: {message: @message}.to_json }
       end
     end
   end
