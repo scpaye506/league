@@ -2,6 +2,7 @@ var leaugeApp = angular.module('leagueapp', ['ui.bootstrap']);
 leaugeApp.controller('typeaheadController', function($scope, $http){
 	$scope.selectedPlayer = {name: '', id: 0};
 	$scope.input = '';
+	$scope.ctrl = '';
 
 	$scope.addAlert = function(message, title, type) {
 		new PNotify({
@@ -20,17 +21,20 @@ leaugeApp.controller('typeaheadController', function($scope, $http){
 		});
 	};
 
-	$scope.createScore = function(){
+	$scope.create = function(){
 		$http({
 			method: 'post', 
-			url: '/api/scores/create.json',
+			url: '/api/' + $scope.ctrl + '/create.json',
 			data: {playerId: $scope.selectedPlayer.id, gameId: gameId, input: $scope.input}
 		}).success(function(res){
-			console.log(res);
 			$scope.addAlert(res.message);
 			$scope.selectedPlayer = {name: '', id: 0};
 			$scope.input = '';
 		})
+	};
+
+	$scope.init = function(ctrl) {
+		$scope.ctrl = ctrl;
 	};
 
 });

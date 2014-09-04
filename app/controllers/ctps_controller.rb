@@ -1,16 +1,19 @@
 class CtpsController < InheritedResources::Base
   before_action :authenticate_user!
   skip_before_action :authenticate_user!, except: [:new, :create, :update, :edit, :destroy]
+  skip_before_action :verify_authenticity_token, only: [:create]
 
   def create
-    ctp = Ctp.create(permitted_params)
+    ctp = Ctp.create({player_id: params[:playerId], game_id: params[:gameId], hole: params[:input]})
     respond_to do |format|
       if ctp.save
-        format.html { redirect_to :back, notice: "CTP added!" }
-        format.json { render json: ctp.to_json.html_safe}
+        @message = "CTP Added!"
+        format.html { redirect_to game_path(params[:gameId]), notice: @message }
+        format.json {render json: {message: @message}.to_json }
       else
-        format.html { redirect_to :back, notice: "Was unable to save CTP!"}
-        format.json { render json: ctp.errors }
+        @message = "Was unable to save CTP!"
+        format.html { redirect_to game_path(params[:gameId]), notice: @message}
+        format.json { render json: score.errors }
       end
     end
   end

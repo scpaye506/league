@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   get '/api/players/search', to: "players#search"
   post '/api/scores/create', to: "scores#create"
+  post '/api/ctps/create', to: "ctps#create"
 
 
   resources :dg_leagues, only: [:show, :edit, :create, :update, :destroy, :index, :new]
